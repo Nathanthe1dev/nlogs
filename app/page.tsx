@@ -1,14 +1,6 @@
 export default function Home() {
   return (
-       <main>
-         <header className="container">
-          <nav>
-           <a href="#">About</a>
-          </nav>
-          <a href="/" className="logo">nlogs</a>
-          <button className="theme-toggle" aria-label="Toggle theme">☼</button>
-        </header>
-        
+       <main> 
         <section className="posts">     
           <a href="#">
             <article>
