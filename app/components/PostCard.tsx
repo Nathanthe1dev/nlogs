@@ -2,7 +2,7 @@ import { Post } from "../data/posts";
 
 export default function PostCard({ post }: { post: Post }) {
   return (
-    <a href="#">
+    <a href={`/posts/${post.slug}`}>
     <article>
         <div className="article-content">
             <span className="article-label">{post.number}</span>

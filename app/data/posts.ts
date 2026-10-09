@@ -4,6 +4,7 @@ export type Post = {
     description: string;
     date: string;
     readTime: string;
+    slug:string;
 };
 
 export const posts: Post[] = [
@@ -13,12 +14,14 @@ export const posts: Post[] = [
         description: "Discover why i chose computer science as my field of study and how it has shaped my career path.",
         date: "8th October, 2026",
         readTime: "5 min read",
+        slug: "why-cs",
     },
-    {
+    {   
         number: "Log 2.0",
         title: "Understanding Version Control Systems",
         description: "Learn about the fundamentals of version control systems and how they can help you manage your codebase effectively.",
         date: "8th October, 2026",
         readTime: "5 min read",
+        slug: "understanding-vcs",
     }
 ];
