@@ -1,4 +1,5 @@
 import { Post } from "../data/posts";
+import ReadTime from "./ReadTime";
 
 export default function PostCard({ post }: { post: Post }) {
   return (
@@ -13,7 +14,8 @@ export default function PostCard({ post }: { post: Post }) {
         <footer>
             <small>
                 <span>{post.date}</span>
-                <span>{post.readTime}</span>
+                <span className="metadata-separator" aria-hidden="true">·</span>
+                <ReadTime minutes={post.readTime} />
             </small>
         </footer>
     </article>

@@ -3,7 +3,7 @@ export type Post = {
     title: string;
     description: string;
     date: string;
-    readTime: string;
+    readTime: number;
     slug:string;
 };
 
@@ -13,7 +13,7 @@ export const posts: Post[] = [
         title: "Why CS?",
         description: "Discover why i chose computer science as my field of study and how it has shaped my career path.",
         date: "8th October, 2026",
-        readTime: "5 min read",
+        readTime: 3,
         slug: "why-cs",
     },
     {   
@@ -21,7 +21,7 @@ export const posts: Post[] = [
         title: "Understanding Version Control Systems",
         description: "Learn about the fundamentals of version control systems and how they can help you manage your codebase effectively.",
         date: "8th October, 2026",
-        readTime: "5 min read",
+        readTime: 10,
         slug: "understanding-vcs",
     }
 ];
