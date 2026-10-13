@@ -1,5 +1,10 @@
 import { posts } from "../../data/posts";
 import { notFound } from "next/navigation";
+import fs from "node:fs/promises";
+import path from "node:path";
+import { marked } from "marked";
+import sanitizeHtml from "sanitize-html";
+import { getReadingTime } from "@/lib/readingTime";
 
 export default async function PostPage({
   params,
@@ -8,28 +13,28 @@ export default async function PostPage({
 }) {
   const { slug } = await params;
   const post = posts.find((post) => post.slug === slug);
-
- if (!post) {
+  
+  if (!post) {
   notFound();
-}
+  }
+  
+  const filePath = path.join(process.cwd(), "content", "posts", `${post.slug}.md`);
+  const fileContent = await fs.readFile(filePath, "utf8");
+  const readingTime = getReadingTime(fileContent);
+  const htmlContent = await marked.parse(fileContent);
+  const sanitizedHtml = sanitizeHtml(htmlContent);
+
   return (
   <main>
     <header className="post-header">
       <p>{post.number}</p>
       <h1>{post.title}</h1>
       <p>{post.date}</p>
+      <p>{readingTime} min read</p>
     </header>
 
     <article className="post-body">
-      <h2>Where it started</h2>
-      <p>
-        Computer science began as a curiosity. Over time, it became a way
-        to understand how things work and build things of my own.
-      </p>
-      <p>
-        Some ideas take a while to make sense. Writing helps me work through
-        them, one thought at a time.
-      </p>
+      <div dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
     </article>
   </main>
 );

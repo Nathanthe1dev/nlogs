@@ -1,7 +1,10 @@
 import { Post } from "../data/posts";
 import ReadTime from "./ReadTime";
+type PostCardProps = {
+  post: Post & { readTime: number };
+};
 
-export default function PostCard({ post }: { post: Post }) {
+export default function PostCard({ post }: PostCardProps) {
   return (
     <a href={`/posts/${post.slug}`}>
     <article>
