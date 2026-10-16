@@ -10,8 +10,10 @@ export default async function Home() {
     const content = await getPostContent(post.slug);
     const readTime = getReadingTime(content);
     return { ...post, readTime };
-    } catch {
-      return null;
+    } catch (error) {
+      if (error instanceof Error && error.message.startsWith("Post not found: "))
+        return null;
+      throw error;
     }})
   );
   const validPosts = postsWithReadingTime.filter((post) => post !== null);

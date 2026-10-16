@@ -7,14 +7,14 @@
     --space-xl: 4rem;     /* Major section gap */
     --font-thi: "Thi";
     --muted: #5a5a69;
-    --border: #d1d5db;
+    --border: #c6a9a1;
  }
 
 :root[data-theme="dark"] {
     --background: #1b1115;
     --foreground: #f5e6e6;
     --muted: #a18991;
-    --border: #3b252e;
+    --border: #513740;
 }
 @font-face {
   font-family: "Thi";
@@ -389,7 +389,7 @@ header nav a:hover::after {
   max-width: 65ch;
   margin: 0 auto;
   padding: var(--space-lg) var(--space-md);
-  border-top: 1px solid rgba(26, 26, 36, 0.2);
+  border-top: 1px solid var(--border);
   line-height: 1.8;
 }
 
