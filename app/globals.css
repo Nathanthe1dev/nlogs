@@ -7,8 +7,15 @@
     --space-xl: 4rem;     /* Major section gap */
     --font-thi: "Thi";
     --muted: #5a5a69;
+    --border: #d1d5db;
  }
 
+:root[data-theme="dark"] {
+    --background: #1b1115;
+    --foreground: #f5e6e6;
+    --muted: #a18991;
+    --border: #3b252e;
+}
 @font-face {
   font-family: "Thi";
   src: url("/fonts/Thi.otf") format('opentype');
@@ -46,12 +53,6 @@ main {
 a {
   color: inherit;
   text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }
 
 .container {
@@ -122,6 +123,18 @@ header nav a:hover::after {
 
 .theme-toggle:hover {
   color: var(--muted);
+}
+
+.theme-icon-dark {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-icon-light {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-icon-dark {
+  display: inline;
 }
 
 .posts {

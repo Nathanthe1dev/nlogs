@@ -16,7 +16,22 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" >
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                const savedTheme = localStorage.getItem("theme");
+                document.documentElement.dataset.theme =
+                  savedTheme === "dark" ? "dark" : "light";
+              } catch {
+                document.documentElement.dataset.theme = "light";
+              }
+            `,
+          }}
+        />
+      </head>
       <body className={`${inter.variable}`}>
         <Header />
         {children}
