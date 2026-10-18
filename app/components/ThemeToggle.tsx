@@ -1,31 +1,41 @@
 "use client";
-import { useEffect } from "react";
+import { useSyncExternalStore } from "react";
+
+function subscribeToTheme(callback: () => void) {
+  window.addEventListener("theme-change", callback);
+  return () => window.removeEventListener("theme-change", callback);
+}
+
+function getThemeSnapshot() {
+  return document.documentElement.dataset.theme === "dark";
+}
+
+function getServerThemeSnapshot() {
+  return false;
+}
 
 export default function ThemeToggle() {
-    function toggleTheme() {
-        const currentlyDark = document.documentElement.dataset.theme === "dark";
-        const nextIsDark = !currentlyDark;
-        document.documentElement.dataset.theme = nextIsDark ? "dark" : "light";
-        localStorage.setItem("theme", nextIsDark ? "dark" : "light");
-    }
+  const isDark = useSyncExternalStore(
+    subscribeToTheme,
+    getThemeSnapshot,
+    getServerThemeSnapshot
+  );
 
-    useEffect(() => {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "dark") {
-            document.documentElement.dataset.theme = "dark";
-        } else {
-            document.documentElement.dataset.theme = "light";
-        }
-    }, []);
+  function toggleTheme() {
+    const nextTheme = isDark ? "light" : "dark";
+    document.documentElement.dataset.theme = nextTheme;
+    document.cookie = `theme=${nextTheme}; path=/; max-age=31536000; samesite=lax`;
+    window.dispatchEvent(new Event("theme-change"));
+  }
 
-    return (
+  return (
     <button
-        className="theme-toggle"
-        aria-label="Toggle theme"
-        onClick={toggleTheme}
+      className="theme-toggle"
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      onClick={toggleTheme}
     >
-        <span className="theme-icon-light" aria-hidden="true">☾</span>
-        <span className="theme-icon-dark" aria-hidden="true">☼</span>
+      <span className="theme-icon-light" aria-hidden="true">☾</span>
+      <span className="theme-icon-dark" aria-hidden="true">☼</span>
     </button>
-);
+  );
 }
